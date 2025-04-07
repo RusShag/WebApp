@@ -19,6 +19,5 @@ def contacts(request):
     }
     return render(request, 'main/contacts.html', context)
 
-def category(request):
-    return render(request, 'main/category.html')
+
 

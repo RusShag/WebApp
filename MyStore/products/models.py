@@ -2,58 +2,70 @@ import os
 import uuid
 from django.db import models
 
-
-
-# class Articles(models.Model):
-#     title = models.CharField('Название', max_length=50)
-#     anons = models.CharField('Анонс', max_length=250)
-#     full_text = models.TextField('Статья')
-#     date = models.DateTimeField('Дата публикации')
-#     image = models.ImageField('Изображение', upload_to='media/articles/')  # Новое поле для изображения
-#
-#     def __str__(self):
-#         return self.title
-#
-#     def get_absolute_url(self):
-#         return f'/products/{self.id}'
-#
-#     class Meta:
-#         verbose_name = 'Товар'
-#         verbose_name_plural = 'Товары'
-
-# Начинаем работать с PostgreSQL
-
-def notebook_image_upload_to(instance, filename):
-    # Генерируем уникальный ID для файла
+# Функция для уникального имени загружаемого изображения
+def product_image_upload_to(instance, filename):
     unique_id = uuid.uuid4()
-    # Получаем расширение файла
     extension = filename.split('.')[-1]
-    # Создаем новое имя файла
-    new_filename = f'notebook_{unique_id}.{extension}'
-    return os.path.join('notebooks/', new_filename)
+    new_filename = f'product_{unique_id}.{extension}'
+    return os.path.join('products/', new_filename)
 
-class Notebook(models.Model):
-    brand = models.CharField(max_length=100)  # Бренд ноутбука
-    model = models.CharField(max_length=100)  # Модель ноутбука
-    processor = models.CharField(max_length=100)  # Процессор
-    ram = models.PositiveIntegerField()  # Оперативная память (в ГБ)
-    storage = models.PositiveIntegerField()  # Хранилище (в ГБ)
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # Цена
-    description = models.TextField(blank=True)  # Описание
-    image = models.ImageField(upload_to=notebook_image_upload_to, blank=True)  # Изображение ноутбука
+# Модель категории товаров (например, "Ноутбуки", "Мониторы" и т.д.)
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='categories/', blank=True)
 
     class Meta:
-        db_table = 'products_notebook'  # Указываем название таблицы
+        db_table = 'products_category'
 
     def __str__(self):
-        return f"{self.brand} {self.model}"
+        return self.name
 
-class Monitor(models.Model):
-    model = models.CharField(max_length=100)  # Модель ноутбука
-    processor = models.CharField(max_length=100)  # Процессор
+# Общая модель товара
+class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to=product_image_upload_to, blank=True)
 
     class Meta:
-        db_table = 'products_monitor'  # Указываем название таблицы
+        db_table = 'products_product'
 
     def __str__(self):
-        return f"{self.model}"
+        return self.name
+
+# ----- СТАРЫЕ МОДЕЛИ, ВРЕМЕННО ОТКЛЮЧЕНЫ -----
+
+# def notebook_image_upload_to(instance, filename):
+#     unique_id = uuid.uuid4()
+#     extension = filename.split('.')[-1]
+#     new_filename = f'notebook_{unique_id}.{extension}'
+#     return os.path.join('notebooks/', new_filename)
+
+# class Notebook(models.Model):
+#     brand = models.CharField(max_length=100)
+#     model = models.CharField(max_length=100)
+#     processor = models.CharField(max_length=100)
+#     ram = models.PositiveIntegerField()
+#     storage = models.PositiveIntegerField()
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+#     description = models.TextField(blank=True)
+#     image = models.ImageField(upload_to=notebook_image_upload_to, blank=True)
+
+#     class Meta:
+#         db_table = 'products_notebook'
+
+#     def __str__(self):
+#         return f"{self.brand} {self.model}"
+
+# class Monitor(models.Model):
+#     model = models.CharField(max_length=100)
+#     processor = models.CharField(max_length=100)
+
+#     class Meta:
+#         db_table = 'products_monitor'
+
+#     def __str__(self):
+#         return f"{self.model}"

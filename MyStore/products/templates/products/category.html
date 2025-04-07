@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Продукты{% endblock %}
+
+{% block content %}
+    <div class="category">
+        {% for category in categories %}
+            <div class="image-container">
+                <a href="{% url 'category_detail' category.slug %}">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

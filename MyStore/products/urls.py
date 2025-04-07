@@ -8,7 +8,9 @@ urlpatterns = [
   # path('create', views.create, name='create'),
   path('computer_case', views.computer_case, name='computer_case'),
   path('notebooks', views.notebooks, name='notebooks'),
-path('notebook/<int:id>/', views.notebook_detail, name='notebook_detail'),
+  path('notebook/<int:id>/', views.notebook_detail, name='notebook_detail'),
   path('monitors', views.monitors, name='monitors'),
   path('accessories', views.accessories, name='accessories'),
+  path('categories/', views.categories_list, name='categories_list'),
+  path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
 ]
