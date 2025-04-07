@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Ноутбуки{% endblock %}
+
+{% block content %}
+        <div class="db_container">
+        <h1 class="my-4">Список Ноутбуков</h1>
+        <div class="row">
+            {% for notebook in notebooks %}
+                <div class="col-md-4">
+                    <div class="notebook-card">
+                        <img src="{{ notebook.image.url }}" alt="{{ notebook.brand }} {{ notebook.model }}" class="card-img-top notebook-image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ notebook.brand }} {{ notebook.model }}</h5>
+                            <p class="card-text">Цена: {{ notebook.price }} ₽</p>
+                            <a href="{% url 'notebook_detail' notebook.id %}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p>Ноутбуков нет.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

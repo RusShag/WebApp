@@ -1,4 +1,4 @@
-from lib2to3.fixes.fix_input import context
+
 
 from django.shortcuts import render
 
@@ -18,4 +18,7 @@ def contacts(request):
         'vk': 'https://vk.com/tatarintsk'
     }
     return render(request, 'main/contacts.html', context)
+
+def category(request):
+    return render(request, 'main/category.html')
 

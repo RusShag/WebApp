@@ -1,12 +1,14 @@
+
 from django.urls import path
 from . import views
 
 
 urlpatterns = [
   path('', views.products_home, name='products_home'),
-  path('create', views.create, name='create'),
-  path('<int:pk>', views.ProductsDetailView.as_view(), name='products-detail'),
-  path('<int:pk>/update', views.ProductsUpdateView.as_view(), name='products-update'),
-  path('<int:pk>/delete', views.ProductsDeleteView.as_view(), name='products-delete')
-
+  # path('create', views.create, name='create'),
+  path('computer_case', views.computer_case, name='computer_case'),
+  path('notebooks', views.notebooks, name='notebooks'),
+path('notebook/<int:id>/', views.notebook_detail, name='notebook_detail'),
+  path('monitors', views.monitors, name='monitors'),
+  path('accessories', views.accessories, name='accessories'),
 ]

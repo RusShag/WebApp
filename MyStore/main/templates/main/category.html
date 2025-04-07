@@ -1,0 +1,20 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Продукты{% endblock %}
+
+{% block content %}
+    <div class="category">
+        <div class="image-container">
+            <a href="{% url 'computer_case' %}"><img src="static/main/img/category11.png" alt="Image 1"></a>
+        </div>
+        <div class="image-container">
+            <a href="{% url 'notebooks' %}"><img src="static/main/img/category22.png" alt="Image 2"></a>
+        </div>
+        <div class="image-container">
+            <a href="{% url 'monitors' %}"><img src="static/main/img/category33.png" alt="Image 3"></a>
+        </div>
+        <div class="image-container">
+            <a href="{% url 'accessories' %}"><img src="static/main/img/category44.png" alt="Image 4"></a>
+        </div>
+    </div>
+{% endblock %}

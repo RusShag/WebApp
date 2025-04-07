@@ -9,9 +9,11 @@
             <div class="container">  <!-- Добавляем контейнер для Flexbox -->
                 {% for el in products %}
                 <div class="post alert alert-warning">  <!-- Изменяем класс для поста -->
+                    <img src="{{ el.image }}">
                     <h3>{{ el.title }}</h3>
                     <p>{{ el.anons }}</p>
-                    <a href="{% url 'products-detail' el.id %}" class="btn btn-warning">Читать подробнее</a>
+                    <p>{{ el.date }}</p>
+                    <a href="{% url 'products-detail' el.id %}" class="btn btn-warning">Перейти к товару</a>
                 </div>
                 {% endfor %}
             </div>

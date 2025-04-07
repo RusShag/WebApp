@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ notebook.brand }} {{ notebook.model }} - Детали{% endblock %}
+
+{% block content %}
+    <div class="db_container">
+        <h1 class="my-4">{{ notebook.brand }} {{ notebook.model }}</h1>
+        <div class="notebook-detail">
+            <img src="{{ notebook.image.url }}" alt="{{ notebook.brand }} {{ notebook.model }}" class="img-fluid notebook-image">
+            <p class="card-text">Цена: {{ notebook.price }} ₽</p>
+
+            <h3>Описание:</h3>
+            <p>{{ notebook.description }}</p>  <!-- Если у вас есть поле описания -->
+
+            <a href="{% url 'notebooks' %}" class="btn btn-secondary">Назад к списку</a>
+        </div>
+    </div>
+{% endblock %}

@@ -5,9 +5,10 @@
 {% block content %}
     <div class="features">
         <h1>{{ article.title }}</h1>
+        <img src="{{ article.image }}">
         <p>{{ article.date }}</p>
         <p>{{ article.full_text }}</p>
-        <a href="{% url 'products-delete' article.id %}" class="btn btn-danger">Удалить</a>
-        <a href="{% url 'products-update' article.id %}" class="btn btn-info">Редактировать</a>
+        <!-- <a href="{% url 'products-delete' article.id %}" class="btn btn-danger">Удалить</a>
+        <a href="{% url 'products-update' article.id %}" class="btn btn-info">Редактировать</a> -->
     </div>
 {% endblock %}
