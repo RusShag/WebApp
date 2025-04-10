@@ -24,60 +24,174 @@ a {
 /* ===================
    Header
 =================== */
-header {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #141723;
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #141723;
+  height: 100px;
+  padding: 0 30px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1500;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-link img {
+  width: 60px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.site-title {
+    font-size: 36px;
+    color: white;
+    font-family: 'LogoFont';
+    text-transform: uppercase;  /* 👈 ДЕЛАЕТ ВСЁ БОЛЬШИМИ БУКВАМИ */
+}
+
+.header-center ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-center a {
+    color: white;
+    text-decoration: none;
+    font-family: 'LogoFont';
+    font-size: 18px;         /* 👈 Было 16px, станет чуть крупнее */
+    transition: color 0.3s;
+    font-weight: 600;
+}
+
+.header-center a:hover {
+  color: #87abf5;
+}
+
+.header-right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header-link,
+.header-link-btn {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'LogoFont';
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.header-link:hover,
+.header-link-btn:hover {
+  color: #87abf5;
+}
+
+@media (max-width: 768px) {
+  .site-title {
+    font-size: 20px;
+  }
+
+  .header-center ul {
+    gap: 15px;
+  }
+
+  .header-link,
+  .header-link-btn {
+    font-size: 14px;
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 20px;
+  }
+
+  .header-left,
+  .header-center,
+  .header-right {
     width: 100%;
-    height: 100px;
-    color: #000;
-    z-index: 1500;
+    justify-content: center;
+    margin: 5px 0;
+  }
 }
 
-header img {
-    width: 80px;
-    height: 80px;
+.cart-icon {
+  position: relative;
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  margin-left: 10px;
 }
 
-header .logo {
-    font-size: 40px;
-    margin-left: 30px;
-    font-weight: bold;
-    font-family: 'LogoFont';
-    color: #fff;
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  padding: 2px 6px;
+  font-family: 'LogoFont';
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
+.add-to-cart-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 30px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-family: 'LogoFont';
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-header ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+.add-to-cart-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
-header ul li {
-    font-family: 'LogoFont';
-    color: #fff;
-    margin-left: 20px;
-    transition: transform .6s ease;
+.cart-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #28a745;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: 'LogoFont';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 2000;
 }
 
-header ul a {
-    color: inherit;
+.cart-toast.show {
+  opacity: 1;
+  pointer-events: auto;
 }
-
-header ul li:hover,
-header ul a:hover {
-    color: #87abf5;
-}
-
 /* ===================
    Главная страница (Home)
 =================== */
@@ -136,129 +250,238 @@ header ul a:hover {
     margin-right: 10%;
 }
 
-/* Swiper */
-.swiper-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    height: 750px;
-    margin: 150px auto;
-    z-index: 1;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+/*======================
+    Блоки с контентом
+=======================*/
+
+/* ===== Анимация при прокрутке ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.swiper-wrapper {
-    display: flex;
+/* Основные блоки */
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  padding: 50px 20px;
+  margin-top: 50px;
+}
+
+.feature-block {
+  background-color: #060b17;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 1000px;
+  width: 90%;
+  padding: 40px 60px;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.8s ease;
+  position: relative;
+}
+
+/* Появление блоков */
+.feature-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Левое и правое выравнивание */
+.feature-block.left {
+  align-self: flex-start;
+  text-align: left;
+  margin-left: 80px;
+}
+
+.feature-block.right {
+  align-self: flex-end;
+  text-align: right;
+  margin-right: 80px;
+}
+
+/* Цвета блоков по порядку */
+.feature-block:nth-child(1) { background-color: #0c1020; }
+.feature-block:nth-child(2) { background-color: #101428; }
+.feature-block:nth-child(3) { background-color: #141933; }
+.feature-block:nth-child(4) { background-color: #1b1f3e; }
+
+/* Иконка */
+.feature-icon {
+  font-size: 50px;
+  color: #87abf5;
+  margin-bottom: 20px;
+}
+
+/* Текст */
+.feature-block h2 {
+  font-size: 48px;
+  color: white;
+  margin-bottom: 15px;
+  font-family: 'LogoFont';
+}
+
+.feature-block p {
+  font-size: 28px;
+  color: #ccc;
+  line-height: 1.6;
+  font-family: 'LogoFont';
+  margin-bottom: 30px;
+}
+
+/* Кнопка */
+.feature-block .slide-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease 0.3s;
+}
+
+.feature-block.visible .slide-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Центровка кнопки при правом блоке */
+.feature-block.right .slide-btn {
+  display: inline-block;
+}
+
+/* Swiper */
+
+main.main-content {
+  padding-top: 100px; /* Чтобы контент не залезал под fixed header */
+}
+
+.main-swiper-container {
+  width: 100%;
+  height: calc(100vh - 100px); /* Учитываем хедер */
+  overflow: hidden;
+  position: relative;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
 .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .swiper-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.slide-with-overlay {
+  position: relative;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: white;
+  text-shadow: 1px 1px 5px black;
+  max-width: 40%;
+  font-family: 'LogoFont';
+  text-align: center;
+}
+
+.slide-overlay h2 {
+  font-size: 54px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.slide-overlay p {
+  font-size: 32px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.slide-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: #00EFFA;
+  color: white;
+  font-size: 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.slide-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-    position: absolute;
-    color: #fff;
-    width: 27px;
-    height: 44px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: 0.3s;
-    z-index: 10;
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
 }
 
-.swiper-button-next {
-    right: 10px;
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 24px;
 }
 
-.swiper-button-prev {
-    left: 10px;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    opacity: 0.7;
-}
-
-.slide-text,
-.slide-text-sec {
-    position: absolute;
-    top: 10%;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'LogoFont';
-}
-
-.slide-text {
-    max-width: 60%;
-    right: 5%;
-    font-size: 30px;
-    text-align: right;
-}
-
-.slide-text-sec {
-    max-width: 100%;
+@media (max-width: 768px) {
+  .slide-overlay {
+    max-width: 90%;
     left: 5%;
-    font-size: 40px;
-    text-align: center;
-}
+    top: 55%;
+  }
 
-.slide-btn,
-.slide-btn-sec {
-    display: inline-block;
-    width: 300px;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    text-decoration: none;
+  .slide-overlay h2 {
+    font-size: 28px;
+  }
+
+  .slide-overlay p {
     font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-}
+  }
 
-.slide-btn {
-    margin-right: 30%;
-}
+  .swiper-slide img {
+    height: auto;
+  }
 
-.slide-btn:hover,
-.slide-btn-sec:hover {
-    transform: scale(1.1);
-    background-color: #0056b3;
+  .main-swiper-container {
+    height: auto; /* Для маленьких экранов пусть адаптируется */
+  }
 }
-
-.slide-btn-sec {
-    margin-top: 170px;
-}
-
 /* ===================
    Контакты
 =================== */
 .contacts-page {
-    margin-top: 150px;
+    margin-top: 100px;
 }
 
 .contacts-container,
 .contacts-text {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 70%;
+    margin: 20px auto;
     background-color: #060b17;
     padding: 20px;
     border-radius: 50px;
@@ -290,7 +513,7 @@ header ul a:hover {
 .about-container,
 .about-content {
     width: 100%;
-    max-width: 600px;
+    max-width: 95%;
     margin: 0 auto;
     background-color: #060b17;
     padding: 30px;

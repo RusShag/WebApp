@@ -1,0 +1,66 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="category-page">
+
+    <div class="filter-column">
+        <form method="get" class="filters-form">
+            <h3>Фильтры</h3>
+
+            <label>Цена (от):</label>
+            <input type="number" name="price_min" placeholder="0">
+
+            <label>Цена (до):</label>
+            <input type="number" name="price_max" placeholder="1000000">
+
+            <label>Бренд:</label>
+            <input type="text" name="brand" placeholder="Например: Lenovo">
+
+            {% if category.name == 'Ноутбуки' %}
+                <label>ОЗУ (ГБ):</label>
+                <input type="number" name="ram" placeholder="например: 16">
+
+                <label>Хранилище (ГБ):</label>
+                <input type="number" name="storage" placeholder="например: 512">
+            {% endif %}
+
+            <button type="submit">Применить</button>
+        </form>
+    </div>
+
+    <div class="products-container">
+        <h2 class="category-title">{{ category.name }}</h2>
+        <div class="sort-bar">
+            <form method="get">
+                <label for="sort">Сортировать по:</label>
+                <select name="sort" id="sort" onchange="this.form.submit()">
+                    <option value="">-- Выберите --</option>
+                    <option value="name" {% if current_sort == 'name' %}selected{% endif %}>Названию (А-Я)</option>
+                    <option value="price_asc" {% if current_sort == 'price_asc' %}selected{% endif %}>Цене (по возрастанию)</option>
+                    <option value="price_desc" {% if current_sort == 'price_desc' %}selected{% endif %}>Цене (по убыванию)</option>
+                    <option value="date_new" {% if current_sort == 'date_new' %}selected{% endif %}>Сначала новые</option>
+                    <option value="date_old" {% if current_sort == 'date_old' %}selected{% endif %}>Сначала старые</option>
+                </select>
+            </form>
+        </div>
+        <div class="product-grid">
+            {% for product in products %}
+                <a href="{% url 'product_detail' product.pk %}">
+                    <div class="product-card">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% endif %}
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.price }} ₸</p>
+                    </div>
+                </a>
+            {% empty %}
+                <p style="color: white;">Товары в этой категории пока не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

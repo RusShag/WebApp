@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="product-detail-container">
+    <div class="product-detail-image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    </div>
+    <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+        <p><strong>Бренд:</strong> {{ product.brand }}</p>
+        {% if product.ram %}<p><strong>RAM:</strong> {{ product.ram }} ГБ</p>{% endif %}
+        {% if product.storage %}<p><strong>Хранилище:</strong> {{ product.storage }} ГБ</p>{% endif %}
+        <p><strong>Цена:</strong> {{ product.price }} ₸</p>
+        <p>{{ product.description }}</p>
+        <a href="#" class="buy-button">Купить</a>
+        <form id="add-to-cart-form">
+          {% csrf_token %}
+          <button type="button" class="add-to-cart-btn" data-product-id="{{ product.id }}">
+            Добавить в корзину
+          </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -4,65 +4,93 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="swiper-container">
+<div class="main-swiper-container">
+  <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="{% static 'main/img/slide11.png' %}" alt="Image 1">
-            <div class="slide-text">
-                <p>
-                    Добро пожаловать в TITAN VIPER! Вас приветствует ваш надежный партнер в мире технологий — интернет-магазин TITAN VIPER,
-                    где мы предлагаем широкий ассортимент компьютеров, ноутбуков и аксессуаров с использованием
-                    самых передовых технологий.
-                    Мы знаем, как важен выбор правильного устройства, поэтому с гордостью представляем только
-                    высококачественные товары, которые соответствуют самым современным требованиям.
-                </p>
-                <a href="category" class="slide-btn">Посмотреть товары</a>
-            </div>
+
+      <!-- Слайд 1 -->
+      <div class="swiper-slide slide-with-overlay">
+        <img src="{% static 'main/img/final_slide_1.png' %}" alt="slide 1">
+        <div class="slide-overlay">
+          <h2>Добро пожаловать в TITAN VIPER</h2>
+          <p>Ваш надежный партнёр в мире игровых технологий и передовых решений.</p>
+          <a href="{% url 'categories_list' %}" class="slide-btn">Перейти в каталог</a>
         </div>
-        <div class="swiper-slide">
-            <img src="{% static 'main/img/slide2.png' %}" alt="Image 2">
-            <div class="slide-text-sec">
-                <p>
-                          Каждый продукт в нашем магазине проходит строгую проверку на качество. Мы сотрудничаем только
-                    с известными брендами, что гарантирует надежность и долговечность вашей техники. Вы можете быть
-                    уверены в том, что покупаете устройства, которые прослужат вам долго.
-                </p>
-                <a href="about" class="slide-btn-sec">Узнать больше</a>
-            </div>
+      </div>
+
+      <!-- Слайд 2 -->
+      <div class="swiper-slide slide-with-overlay">
+        <img src="{% static 'main/img/final_slide_2.png' %}" alt="slide 2">
+        <div class="slide-overlay">
+          <h2>Гарантия качества</h2>
+          <p>Проверенные бренды и техника, которой можно доверять.</p>
+          <a href="{% url 'about' %}" class="slide-btn">Узнать больше</a>
         </div>
+      </div>
+
+      <!-- Слайд 3 -->
+      <div class="swiper-slide slide-with-overlay">
+        <img src="{% static 'main/img/final_slide_3.png' %}" alt="slide 3">
+        <div class="slide-overlay">
+          <h2>Игровой ноутбук будущего</h2>
+          <p>Погрузитесь в мир высокой производительности и футуристичного дизайна.</p>
+          <a href="{% url 'categories_list' %}" class="slide-btn">Купить ноутбук</a>
+        </div>
+      </div>
+
+      <!-- Слайд 4 -->
+      <div class="swiper-slide slide-with-overlay">
+        <img src="{% static 'main/img/final_slide_4.png' %}" alt="slide 4">
+        <div class="slide-overlay">
+          <h2>Мощь. Стиль. Будущее.</h2>
+          <p>Компьютеры, которые вдохновляют. Сделай шаг вперёд с TITAN VIPER.</p>
+          <a href="{% url 'categories_list' %}" class="slide-btn">Выбрать ПК</a>
+        </div>
+      </div>
+
     </div>
-    <!-- Добавление стрелок слева и справа -->
+
+    <!-- Стрелки -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
+  </div>
 </div>
-<div class="home_page">
-    <div class="home_left_text">
-        <h2>Современные технологии</h2>
-        <p>В нашем ассортименте вы найдете компьютеры и ноутбуки, оснащенные последними процессорами, видеокартами и другими компонентами, которые обеспечивают высокую производительность. Мы предлагаем устройства для любых задач — от домашнего использования до профессиональных решений для бизнеса и игр.</p>
-    </div>
-    <div class="home_right_text">
-        <h2>Аксессуары на любой вкус</h2>
-        <p>Не забывайте про аксессуары! В TITAN VIPER вы найдете все необходимое: от эргономичных клавиатур и мышей до стильных смартфонов и внешних жестких дисков. Мы предлагаем широкий выбор, чтобы сделать вашу работу и игры еще более комфортными.</p>
-    </div>
-    <div class="home_left_text">
-        <h2>Быстрая доставка и отличный сервис</h2>
-        <p>Мы стремимся сделать покупку максимально удобной для вас. Быстрая доставка и квалифицированная поддержка клиентов — это наши приоритеты. Если у вас возникнут вопросы, наша команда всегда готова помочь!</p>
-    </div>
-    <div class="home_right_text">
-        <h2>Ваш идеальный компьютер ждет вас в TITAN VIPER!</h2>
-        <p>Не упустите возможность стать частью мира высоких технологий. Проверьте наш каталог и выберите идеальное устройство именно для вас! С TITAN VIPER технологии становятся доступными для каждого!</p>
-    </div>
+<div class="features">
+  <div class="feature-block left">
+    <i class="fas fa-microchip feature-icon"></i>
+    <h2>Передовые технологии</h2>
+    <p>Мы предлагаем только новейшие устройства с актуальными характеристиками. TITAN VIPER — на гребне технологической волны.</p>
+    <a href="{% url 'categories_list' %}" class="slide-btn delayed-btn">Смотреть устройства</a>
+  </div>
+  <div class="feature-block right">
+    <i class="fas fa-shield-alt feature-icon"></i>
+    <h2>Надёжные бренды</h2>
+    <p>Только проверенные производители: мы работаем напрямую с брендами, которым доверяют миллионы.</p>
+    <a href="{% url 'about' %}" class="slide-btn delayed-btn">О нас</a>
+  </div>
+  <div class="feature-block left">
+    <i class="fas fa-truck feature-icon"></i>
+    <h2>Доставка по всему Казахстану</h2>
+    <p>Быстро доставим заказ в любую точку страны — надёжно, безопасно и без задержек.</p>
+    <a href="{% url 'contacts' %}" class="slide-btn delayed-btn">Контакты</a>
+  </div>
+  <div class="feature-block right">
+    <i class="fas fa-gamepad feature-icon"></i>
+    <h2>Геймерская эстетика</h2>
+    <p>Сочетание яркого дизайна и топовой мощности: устройства, которые не только работают, но и вдохновляют.</p>
+    <a href="{% url 'categories_list' %}" class="slide-btn delayed-btn">Игровые товары</a>
+  </div>
 </div>
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-            delay: 3000,
-        },
-        loop: true,
-    });
+  const swiper = new Swiper('.swiper.mySwiper', {
+    loop: true,
+    autoplay: {
+      delay: 5000,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
 </script>
 {% endblock %}
